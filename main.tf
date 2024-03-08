@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "terraform-resources"
     storage_account_name = "storacctterraform"
     container_name       = "statecam"
-    key                  = "cam"
+    key                  = "terraform"
   }
 }
 provider "azurerm" {
