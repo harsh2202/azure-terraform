@@ -1,9 +1,9 @@
 
 # terraform {
 #   backend "azurerm" {
-#     resource_group_name  = "terraform-resources"
-#     storage_account_name = "storacctterraform"
-#     container_name       = "statecam"
+#     resource_group_name  = "DefaultResourceGroup-EUS"
+#     storage_account_name = "storage01tfstate"
+#     container_name       = "statefiles"
 #     key                  = "terraform"
 #   }
 # }
@@ -11,30 +11,22 @@ provider "azurerm" {
   features {}
 }
 
+data "azurerm_resource_group" "rgname" {
+  name = "DefaultResourceGroup-EUS"
+}
+
 # Creating the Storage account
 
-resource "azurerm_resource_group" "common_RG" {
-    name = var.rgName  
-    location = var.location
-}
-
-resource "random_string" "rstr" {
-  length = 8
-  special = true
-  upper = true
-}
-
 resource "azurerm_storage_account" "storage" {
-  name                      = "${var.rgName}${random_string.rstr.result}"
-  resource_group_name       = azurerm_resource_group.common_RG.name
-  location                 = var.location   
-  account_tier             = "Standard"
+  name                      = "storage01tfstate"
+  resource_group_name       = data.azurerm_resource_group.rgname.name
+  location                  = var.location  
+  account_tier              = "Standard"
   account_replication_type  = "LRS"
-  
 }
 
 resource "azurerm_storage_container" "statefile" {
   name                 = "statefiles"
   storage_account_name = azurerm_storage_account.storage.name
-   
 }
+
