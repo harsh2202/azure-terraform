@@ -2,6 +2,9 @@ provider "azurerm" {
   features {}
 }
 
+####### TF APPLY ################
+
+
 data "azurerm_resource_group" "rgname" {
   name = "DefaultResourceGroup-EUS"
 }
@@ -19,13 +22,5 @@ resource "azurerm_storage_account" "storage" {
 resource "azurerm_storage_container" "statefile" {
   name                 = "statefiles"
   storage_account_name = azurerm_storage_account.storage.name
-}
-
-
-# Creating the Storage account
-
-resource "azurerm_resource_group" "common_RG" {
-    name = var.rgName  
-    location = var.location
 }
 
