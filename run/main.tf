@@ -22,7 +22,7 @@ module "network" {
 
 module "vms" {
     source = "../modules/infra/vms"
-  
+    prefix = var.prefix
 }
 
 module "aks" {
