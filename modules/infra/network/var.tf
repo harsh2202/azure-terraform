@@ -2,10 +2,6 @@ variable "location" {
   description = "Azure region where the resources will be created"
 }
 
-# variable "resource_group_name" {
-#   description = "Name of the resource group to deploy the resources"
-# }
-
 variable "hub_vnet_cidr" {
   description = "CIDR block for the hub VNet"
 }
