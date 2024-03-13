@@ -21,6 +21,14 @@ module "network" {
 }
 
 module "vms" {
-    
+    source = "../modules/infra/vms"
   
+}
+
+module "aks" {
+#    depends_on = [ module.network ]
+    source     = "../modules/infra/aks"
+    location = var.location
+    prefix = var.prefix
+
 }
