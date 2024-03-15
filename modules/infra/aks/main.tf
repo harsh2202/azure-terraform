@@ -24,3 +24,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 }
+
+resource "azurerm_container_registry" "acr" {
+  name                = "${var.prefix}registry"
+  resource_group_name = data.azurerm_resource_group.rgname.name
+  location            = data.azurerm_resource_group.rgname.location
+  sku                 = "Standard"
+}

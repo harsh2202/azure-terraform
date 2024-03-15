@@ -23,19 +23,6 @@ data "azurerm_resource_group" "rgname" {
 #   enforce_private_link_endpoint_network_policies = true
 # }
 
-# Private DNS Zone for SQL API 
-resource "azurerm_private_dns_zone" "dns_zone" {
-  name                = "privatelink.documents.azure.com"
-  resource_group_name = azurerm_resource_group.this.name
-}
-
-resource "azurerm_private_dns_zone_virtual_network_link" "dns_zone" {
-  name                  = var.private_dns_vnet_link_name
-  resource_group_name   = data.azurerm_resource_group.rgname.name
-  private_dns_zone_name = azurerm_private_dns_zone.dns_zone.name
-  virtual_network_id    = azurerm_virtual_network.this.id
-  registration_enabled  = false
-}
 
 module "azure_cosmos_db" {
   source              = "Azure/cosmosdb/azurerm"
